@@ -1,9 +1,50 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { GraduationCap, Trophy, BarChart3, Shield, Users, BookOpen } from "lucide-react";
-import { Link } from "react-router-dom";
+import { GraduationCap, Trophy, BarChart3, Shield, Users, BookOpen, FileText, Lock, Layout } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 
 const Index = () => {
+  const navigate = useNavigate();
+
+  const portals = [
+    {
+      icon: Trophy,
+      title: "CGPA Based Ranking",
+      description: "View top performers ranked by cumulative GPA",
+      path: "/cgpa-ranking",
+    },
+    {
+      icon: BarChart3,
+      title: "Interactive Leaderboard",
+      description: "Real-time leaderboard with live performance tracking",
+      path: "/interactive-leaderboard",
+    },
+    {
+      icon: Layout,
+      title: "Organized Structure",
+      description: "Comprehensive student data organization and analytics",
+      path: "/organized-structure",
+    },
+    {
+      icon: Lock,
+      title: "Secure Access Portal",
+      description: "Protected student result verification system",
+      path: "/secure-access",
+    },
+    {
+      icon: Users,
+      title: "Department-Wise View",
+      description: "Browse results organized by departments",
+      path: "/department-view",
+    },
+    {
+      icon: FileText,
+      title: "PDF Result Upload",
+      description: "Upload results for automatic CGPA sorting",
+      path: "/pdf-upload",
+    },
+  ];
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -29,70 +70,26 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Features Section */}
+      {/* Portals Section */}
       <section className="py-16 px-4">
         <div className="container mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">Key Features</h2>
+          <h2 className="text-3xl font-bold text-center mb-4 animate-fade-in">Access Portals</h2>
+          <p className="text-center text-muted-foreground mb-12">Click on any portal to explore different features</p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <Card className="shadow-card hover:shadow-elevated transition-shadow">
-              <CardHeader>
-                <Trophy className="h-10 w-10 text-secondary mb-2" />
-                <CardTitle>CGPA-Based Rankings</CardTitle>
-                <CardDescription>
-                  Results automatically sorted by CGPA with highest performers on top
-                </CardDescription>
-              </CardHeader>
-            </Card>
-
-            <Card className="shadow-card hover:shadow-elevated transition-shadow">
-              <CardHeader>
-                <BarChart3 className="h-10 w-10 text-primary mb-2" />
-                <CardTitle>Interactive Leaderboard</CardTitle>
-                <CardDescription>
-                  Real-time leaderboard showcasing top achievers across all departments
-                </CardDescription>
-              </CardHeader>
-            </Card>
-
-            <Card className="shadow-card hover:shadow-elevated transition-shadow">
-              <CardHeader>
-                <BookOpen className="h-10 w-10 text-secondary mb-2" />
-                <CardTitle>Organized Structure</CardTitle>
-                <CardDescription>
-                  Results organized by semester, course, department, and class
-                </CardDescription>
-              </CardHeader>
-            </Card>
-
-            <Card className="shadow-card hover:shadow-elevated transition-shadow">
-              <CardHeader>
-                <Shield className="h-10 w-10 text-primary mb-2" />
-                <CardTitle>Secure Access</CardTitle>
-                <CardDescription>
-                  Separate login portals for students and staff with role-based access
-                </CardDescription>
-              </CardHeader>
-            </Card>
-
-            <Card className="shadow-card hover:shadow-elevated transition-shadow">
-              <CardHeader>
-                <Users className="h-10 w-10 text-secondary mb-2" />
-                <CardTitle>Department-Wise View</CardTitle>
-                <CardDescription>
-                  Browse results filtered by specific departments and programs
-                </CardDescription>
-              </CardHeader>
-            </Card>
-
-            <Card className="shadow-card hover:shadow-elevated transition-shadow">
-              <CardHeader>
-                <GraduationCap className="h-10 w-10 text-primary mb-2" />
-                <CardTitle>PDF Result Upload</CardTitle>
-                <CardDescription>
-                  Easy PDF upload system for batch result processing and sorting
-                </CardDescription>
-              </CardHeader>
-            </Card>
+            {portals.map((portal, index) => (
+              <Card 
+                key={index} 
+                className="shadow-card hover:shadow-elevated hover-scale cursor-pointer transition-all"
+                style={{ animationDelay: `${index * 0.1}s` }}
+                onClick={() => navigate(portal.path)}
+              >
+                <CardHeader>
+                  <portal.icon className="h-10 w-10 text-primary mb-2" />
+                  <CardTitle>{portal.title}</CardTitle>
+                  <CardDescription>{portal.description}</CardDescription>
+                </CardHeader>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
